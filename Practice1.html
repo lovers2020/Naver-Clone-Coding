@@ -1,1 +1,349 @@
-Hello World asdasd ?  asdasd ?
+<!DOCTYPE html>
+<html lang="en"
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width", initial-scale="1.0" />
+        <title>레이아웃 잡기</title>
+        <style>
+            
+                * {
+                box-sizing: border-box; /* 길이 계산을 편하게 하기 위함  box-sizing에 관한 설
+                명은 아래 링크를 참고해주세요*/ 
+            }
+            body {
+                margin: 0; /* body의 기본 마진을 없애줍니다(선택사항) */
+                font-family: sans-serif;
+            }
+            a {
+                text-decoration: none; /* 기본 밑줄을 제거합니다 */
+                color: #888;
+            }
+            a:hover {
+                text-decoration: underline; 
+                /* 마우스 커서가 올라갔을 때 밑줄을 생성합니다. */
+            }
+            
+            ul { /* ul의 하위요소(li) 수평정렬을 위해 기본마진, 패딩 제거 */
+                margin: 0;
+                padding: 0;
+            }
+               /* 재사용 클래스 */
+               .color_naver {
+                color: #03cf5d;
+            }
+            .text_bold-13 {
+                font-weight: bold;
+                font-size: 13px;
+            }          
+            header {
+                margin: auto; /* header의 양쪽 여백을 동등하게 맞춤 -> 수평 가운데 정렬*/
+                width: 1080px;  
+                height: 215px;
+                display: flex;
+                align-items: center; /*  하위 요소들 수직 가운데 정렬 */
+                position: relative;
+            }
+            fieldset {
+                border: none; /* 기본 border 없애기(이 코드를 지우고 기본 border를 확인해보세요) */ 
+            }
+            .visually-hidden { /* legend 안보이게 설정. 이렇게하면 접근성을 준수하면서 디자인을 해치치 않습니다. */
+                position: absolute !important;
+                height: 1px;
+                width: 1px;
+                overflow: hidden;
+                clip: rect(1px 1px 1px 1px);
+                clip: rect(1px, 1px, 1px, 1px);
+                white-space: nowrap;
+            }
+            .links{/* 링크들을 상단 우측에 위치시킵니다 */
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+            .link_text{
+                font-size: 10px;
+                margin-left: 5px;
+            }
+            .img_logo{
+                margin-bottom: 12px;
+                width: 220px;
+                height: 65px;
+            }
+            .search_box {
+                width: 520px;
+                height: 50px;
+                border: 2px solid #03cf5d;
+                display: flex;
+                align-items: center;
+            }
+            .search_box input {
+                flex: 9;/* search-box 내부에서 9만큼의 크기를 차지(비율) */
+                height: 46px;
+                padding-left: 12px;
+                padding-right: 12px;
+                border: none;
+                outline: none;
+                font-size: 18px;
+            }
+            .search_box button {
+                flex: 1;/* search-box 내부에서 1만큼의 크기를 차지(비율) */
+                height: 46px;
+                margin: 0;
+                padding: 0;
+                border: none;
+                outline: none;
+                background: #03cf5d;
+                color: #ffffff;
+            }
+            /* nav */
+            header > nav {
+                width: 100%;
+                height: 45px;
+                position: absolute;
+                bottom: 0;
+            }
+            .nav_items {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 15px;
+                font-weight: bold;
+                border-top: 1px solid #f1f3f6;
+            }
+            .nav_items ul > li {
+                display: inline-block;
+                margin-left: 8px;
+            }
+            .nav_items ul > li:nth-child(n+7) > a {/* <ul>하위 7번째 <li>까지 각각 내부의 <a> 태그 접근 */
+                color: #03cf5d;
+            }
+            .nav_items ul > li > a {
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+             
+            main {
+                background: #f2f4f7;
+                min-height: 700px;
+            } 
+            .main-container {
+                width: 1080px;
+                margin: auto;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); /* 균일한 크기로 3등분 */
+                grid-template-rows: repeat(24,40px); /* 40px로 24등분 -> <main>영역의 전체 height가 계산 된다면
+                    height 지정 후 1fr로 사용 가능 */
+                
+            }
+            .temp-box {
+                background: skyblue;
+                text-align: center;
+                font-size: 30px;
+                border: 1px solid #dee3eb;
+            }
+            .box-one {
+                grid-column: 1 / 3;
+                grid-row: 1 / 3;
+            }
+            footer {
+                width: 1080px;
+                height: 310px;
+                margin: auto;
+                padding: 0 8px 0 8px; /* 각각 위 오른쪽 아래 왼쪽 */
+                display: flex;
+                flex-direction: column; /* 요소들을 수평정렬 */
+                font-size: 12px;
+            }
+            .notice_box {
+                flex: 1;
+                display: flex;
+                justify-content: space-between; /* 양끝 정렬 */
+                align-items: center;
+                border-bottom: 1px solid #f1f3f6;
+            }
+            .notice_box a {
+                font-weight: bold;
+                color: black;
+            }
+            .aside_box {
+                flex: 2;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #f1f3f6;
+            }
+            .area_user {
+                flex: 4;
+                line-height: 2em; /* 줄 간격 */
+            }
+            .area_user_row {
+                display: flex;
+            }
+            .area_user_row span {
+                flex: 1;
+            }
+            .area_user_row ul {
+                flex: 6;
+            }
+            .aur_title {
+                font-size: 13;
+                font-weight: bold;
+            }
+            .area_user_row ul > li {
+                display: inline-block; /* li 수평 정렬 */
+                margin-left: 8px;
+            }
+            .area_col {
+                flex: 1;
+                display: flex;
+            }
+            .area_col .ac_content {
+                line-height: 20px;
+            }  
+            .area_col .ac_img {
+                width: 60px;
+                height: 60px;
+            }
+            .bottom_box {
+                flex: 3;
+                padding-top: 20px;
+                font-size: 14px;
+            }
+            .bottom_box ul > li {
+                display: inline-block;/* 수평정렬 */
+                margin-left: 8px;
+            }
+            .bottom_box ul > li {
+                display: inline-block;
+                margin-left: 8px;
+            }
+            .bottom_box ul > li:last-child { /* 마지막 li요소 (naver corp) 굵게 */
+                font-weight: bold;
+            }
+             
+            
+
+        </style>
+     
+    </head>
+    <body>
+        <header>
+            <div class="links">
+            <a href="/" class="link_text">네이버를 시작페이지로</a>
+            <a href="/" class="link_text">쥬니어네이버</a>
+            <a href="/" class="link_text">해피빈</a>
+            </div>
+            <a href="/"><img src="naver_logo.png" class="img_logo"/></a>
+            <form>
+                <fieldset>
+                    <legend class="visually-hidden">검색</legend>
+                    <div class="search_box">
+                        <input type="text" maxlength="225" tabindex="1" />
+                        <button type="submit" tabindex="2">
+                            검색
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        <nav>
+            <div class="nav_items">
+                <ul>
+                    <li><a href="/">메일</a></li>
+                    <li><a href="/">카페</a></li>
+                    <li><a href="/">블로그</a></li>
+                    <li><a href="/">지식iN</a></li>
+                    <li><a href="/">쇼핑</a></li>
+                    <li><a href="/">Pay</a></li>
+                    <li><a href="/">TV</a></li>
+                    <li><a href="/">사전</a></li>
+                    <li><a href="/">뉴스</a></li>
+                    <li><a href="/">증권</a></li>
+                    <li><a href="/">부동산</a></li>
+                    <li><a href="/">지도</a></li>
+                    <li><a href="/">영화</a></li>
+                    <li><a href="/">뮤직</a></li>
+                    <li><a href="/">책</a></li>
+                    <li><a href="/">웹툰</a></li>
+                    <li><a href="/">더보기</a></li>
+                </ul>
+                <div class="keyword">
+                    <span class="color_naver">1</span>
+                    <span>월레스와 그로밋</span>
+                </div>
+            </div>
+        </nav>
+        </header>
+        <main>
+            <div class="main-container">         
+                <div class="temp-box box-one">1</div>
+            </div>
+        </main>
+        <footer>
+            <div class="notice_box">
+                <a href="/">공지사항</a>
+                <a href="/">서비스 전체보기</a>
+            </div>
+            <div class="aside_box">
+                <div class="area_user">
+                    <div class="area_user_row">
+                        <span class="text_bold-13">Creators</span>
+                        <ul>
+                            <li><a href="/">크리에이터</a></li>
+                            <li><a href="/">스몰비즈니스</a></li>
+                        </ul>
+                    </div>
+                    <div class="area_user_row">
+                        <span class="text_bold-13">Partners</span>
+                        <ul>
+                            <li><a href="/">비즈니스 광고</a></li>
+                            <li><a href="/">스토어 개설</a></li>
+                            <li><a href="/">지역업체 등록</a></li>
+                        </ul>
+                    </div>
+                    <div class="area_user_row">
+                        <span class="text_bold-13">Developers</span>
+                        <ul>
+                            <li><a href="/">네이버 개발자 센터</a></li>
+                            <li><a href="/">오픈 API</a></li>
+                            <li><a href="/">오픈소스</a></li>
+                            <li><a href="/">네이버 D2</a></li>
+                            <li><a href="/">네이버 D2SF</a></li>
+                            <li><a href="/">네이버 랩스</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="area_col">
+                    <div class="ac_content">
+                        <div class="text_bold-13">웨일 브라우저</div>
+                        <div class="ac_link"><a href="/">다운받기</a></div>
+                    </div>
+                    <a href="/"><img src="icon_whale.png" class="ac_img"/></a>
+                </div>
+                <div class="area_col">
+                    <div class="ac_content">
+                        <div class="text_bold-13">프로젝트 꽃</div>
+                        <div class="ac_link"><a href="/">바로가기</a></div>
+                    </div>
+                    <a href="/"><img src="icon_flower.png" class="ac_img"/></a>
+                </div>
+            </div>
+            <div class="bottom_box">
+                <ul>
+                    <li><a href="/">회사소개</a></li>
+                    <li><a href="/">인재채용</a></li>
+                    <li><a href="/">제휴제안</a></li>
+                    <li><a href="/">이용약관</a></li>
+                    <li><a href="/">개인정보처리방침</a></li>
+                    <li><a href="/">청소년보호정책</a></li>
+                    <li><a href="/">네이버 정책</a></li>
+                    <li><a href="/">고객센터</a></li>
+                    <li><a href="/">&copy; NAVER Corp.</a></li>
+                </ul>
+            </div>            
+        </footer>
+    </body>        
+            
+
+</html>
